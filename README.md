@@ -29,13 +29,14 @@ If you just run it by the commands as follows:
     $ hokuto
 
 Currently implemented options are below:
+
     -p, --http-port=HTTP_PORT                   specify the HTTP port(default: 7080)
     -c, --context-root=PATH                     specify the context root(default: /)
     -d, --base-directory=DIR                    specify the root of apps(default: working directory)
     -e, --environment=ENV                       specify the rack environment (default: 'development')
-    -sINSTANCES_ON_STARTUP, --min-instances     specify the number of JRuby instances on startup(default: 1)
-    -xMAXIMUM_INSTANCES, --max-instances        specify the maximum number of JRuby instances(default: 1)
-Note that your app will run the multithreaded mode if INSTANCES_ON_STARTUP == MAXIMUM_INSTANCES == 1 (default). If you want to perform highly with limited resources, you should not use multiple instances. Just you should implement apps in the multithreaded manner.
+    -s, --min-instances=INSTANCES_ON_STARTUP    specify the number of JRuby instances on startup(default: 1)
+    -x, --max-instances=MAXIMUM_INSTANCES       specify the maximum number of JRuby instances(default: 1)
+Note that your app will run the multithreaded mode if --min-instances == --max-instances == 1 (default). If you want to perform highly with limited resources, you should not use multiple instances. Just you should implement apps in the multithreaded manner.
 
 ## Contributing
 
