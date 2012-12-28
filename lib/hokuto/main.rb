@@ -51,7 +51,7 @@ module Hokuto
       parser.on('-P', '--https-port=SECURE_PORT'){|v|result[:https_port] = v}
       parser.on('-c', '--context-root=PATH'){|v|app_config[:context_root] = v}
       parser.on('-d', '--base-directory=DIR'){|v|app_config[:base_directory] = v}
-      parser.on('-e', '--environment=DIR'){|v|app_config[:environment] = v}
+      parser.on('-e', '--environment=ENV'){|v|app_config[:environment] = v}
       parser.on('-s', '--min-instances=INSTANCES_ON_STARTUP'){|v|app_config[:min_instances] = v}
       parser.on('-x', '--max-instances=MAXIMUM_INSTANCES'){|v|app_config[:max_instances] = v}
       parser.parse!
