@@ -5,7 +5,7 @@ require 'rack'
 require 'java'
 require 'optparse'
 
-require 'jruby-jetty/server'
+require 'hokuto/server'
 
 require 'optparse'
 require 'yaml'
