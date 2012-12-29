@@ -1,7 +1,11 @@
 # -*- coding: UTF-8 -*-
 
 module Hokuto
-  # represents the server process.
+  # The class which epresents the server process.
+  #
+  #= Usage:
+  #== Simple booting
+  # <pre>Hokuto::Server.new(port: 8080).run</pre>
   class Server
 
     java_import org.eclipse.jetty.server.handler.ContextHandlerCollection
@@ -12,7 +16,9 @@ module Hokuto
     attr_reader :jetty, :applications, :handler_collection, :certs
 
     # initialize the server.
-    #
+    # _options_ :: server options. currently effective options are as below:
+    #              <ul><li><strong>port</strong>: HTTP port to listen.</li>
+    #              </ul>
     def initialize(options = {})
       @http_port = options[:port].to_i
       @https_port = options[:https_port].to_i if options[:https_port]
@@ -23,6 +29,8 @@ module Hokuto
     end
 
     # register the application.
+    # 
+    # _application_ :: The application to deploy. It must be an instance of Hokuto::Application.
     def add(application)
       previous_application = applications.delete application.context_root
       handler_collection.remove_handler previous_application.context if previous_application
@@ -31,8 +39,8 @@ module Hokuto
       applications[application.context_root] = application
     end
 
-    # booting the server.
-    def run
+    # Boot server and returns immediately.
+    def start
       [:INT, :TERM, :ABRT].each{|signal|Signal.trap(signal, ->{stop})}
 
       connector = SelectChannelConnector.new
@@ -41,11 +49,15 @@ module Hokuto
 
       jetty.add_connector connector
       jetty.start
+    end
 
+    # Boot this server. Invocation of this method blocks the thread.
+    def run
+      start
       jetty.join
     end
 
-    # shutting down the server.
+    # Shutting down the server.
     def stop
       jetty.stop
     end
