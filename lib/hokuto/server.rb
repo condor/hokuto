@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
-# represents the server process.
 module Hokuto
+  # represents the server process.
   class Server
 
     java_import org.eclipse.jetty.server.handler.ContextHandlerCollection
