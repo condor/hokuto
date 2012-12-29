@@ -1,11 +1,18 @@
 # -*- coding: UTF-8 -*-
 
 module Hokuto
-  # The class which represents the server process.
+  #The class which represents the server process.
   #
   #= Usage:
-  #== Simple booting
-  # <pre>Hokuto::Server.new(port: 8080).run</pre>
+  #
+  #== Simple booting, just 
+  #  Hokuto::Server.new(port: 8080).run
+  #
+  #== Deploying the application
+  #  server = Hokuto::Server.new(port: 8080)
+  #  Application = Hokuto::Application.new(app_options)
+  #  server.start # begin to listen.
+  #  ... # other processes.
   class Server
 
     java_import org.eclipse.jetty.server.handler.ContextHandlerCollection
@@ -17,8 +24,8 @@ module Hokuto
 
     # initialize the server.
     # _options_ :: server options. currently effective options are as below:
-    #              <ul><li><strong>port</strong>: HTTP port to listen.</li>
-    #              </ul>
+    # - _port_:: HTTP port to listen.
+    #              
     def initialize(options = {})
       @http_port = options[:port].to_i
       @https_port = options[:https_port].to_i if options[:https_port]

@@ -25,15 +25,13 @@ module Hokuto
     # Notice: The class doesn't have any responsibility to give the default values.
     # The class responsible to set defaults is Hokuto::Main. 
     #
-    # _options_ :: Application options. It can include the following parameters:
-    #              <ul>
-    #               <li><strong>:descriptor</strong>: The path for your web.xml. <br />Note: All other options are ignored if you give this option.</li>
-    #               <li><strong>:environment</strong>: The value of RACK_ENV environmental variable. If you use RoR, set this value correctly.</li>
-    #               <li><strong>:context_root</strong>: The context root path of this application.</li>
-    #               <li><strong>:base_directory</strong>: The path where application root (nearly equals to the directory where config.ru exists).</li>
-    #               <li><strong>:min_instances</strong>: The number of JRuby runtimes allocated on startup. In the production environment, this should be equal to :max_instances option.</li>
-    #               <li><strong>:max_instances</strong>: The maximum number of JRuby runtimes which is going to be allocated. If you don't use any thread-unsafe library, you should make your apps thread-safe and turn this value to 1 on the production environment.</li>
-    #              </ul>
+    # _options_ :: Your application's options. It can include the following parameters:
+    # - _descriptor_:: The path for your web.xml. Note: All other options are ignored if you give this option.
+    # - _environment_:: The value of RACK_ENV environmental variable. If you use RoR, set this value correctly.
+    # - _context_root_:: The context root path of this application.
+    # - _base_directory_:: The path where application root (nearly equals to the directory where config.ru exists).
+    # - _min_instances_:: The number of JRuby runtimes allocated on startup. In the production environment, this should be equal to :max_instances option.
+    # - _max_instances_:: The maximum number of JRuby runtimes which is going to be allocated. If you don't use any thread-unsafe library, you should make your apps thread-safe and turn this value to 1 on the production environment.
     def initialize(options)
 
       @context = WebAppContext.new
