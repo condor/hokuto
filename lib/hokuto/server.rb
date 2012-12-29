@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 module Hokuto
-  # The class which epresents the server process.
+  # The class which represents the server process.
   #
   #= Usage:
   #== Simple booting
