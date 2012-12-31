@@ -42,8 +42,8 @@ module Hokuto
         @environment = options[:environment]
         @context_root = options[:context_root]
         @base_directory = options[:base_directory]
-        @min_instances = options[:min_instances]
-        @max_instances = options[:max_instances]
+        @min_instances = options[:min_instances].to_i if options[:min_instances]
+        @max_instances = options[:max_instances].to_i if options[:max_instances]
 
         setup_context
       end

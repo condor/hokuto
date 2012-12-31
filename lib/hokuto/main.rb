@@ -11,10 +11,28 @@ require 'optparse'
 require 'yaml'
 
 module Hokuto
+
+  #The entry point module to invoke the Jetty server.
+  #This module prepares the default value of any application.
   module Main
 
-    def self.run(args)
-      config = parse_arguments(args)
+    #Run the server.
+    #
+    #
+    #= Arguments
+    #_options_:: Server and Application options given by commandline arguments. Currently effective items are below:
+    #=== whole configuration
+    #- -f,--config-file=CONFIG_FILE:: The path to the configuration YAML file.
+    #=== server configuration
+    #- -p,--port=HTTP_PORT:: The port where HTTP server listens. Default: 7080
+    #=== application configuration
+    #- -w,--web-xml=WEBXML:: The path to your application's web.xml
+    #- -c,--context-root=PATH:: The context root of your app. Default: '/'
+    #- -d,--base-directory=DIR:: The directory where your application is. Default: current working directory
+    #- -e,--environment=ENV:: The value of RACK_ENV variable your application runs under. Default: 'environment'
+    #- -s,--min-instances=INSTANCES_ON_STARTUP:: The number of the JRuby runtime instances for your app on startup.
+    def self.run(options)
+      config = parse_arguments(options)
 
       if config_file = config.delete(:config_file)
         config = YAML.load_file(config_file)
@@ -33,7 +51,9 @@ module Hokuto
       server.run
     end
 
-    def self.parse_arguments(args)
+    # :nodoc:
+    #
+    def self.parse_arguments(options)
       result = {
         port: 7080,
       }
@@ -54,7 +74,7 @@ module Hokuto
       parser.on('-e', '--environment=ENV'){|v|app_config[:environment] = v}
       parser.on('-s', '--min-instances=INSTANCES_ON_STARTUP'){|v|app_config[:min_instances] = v}
       parser.on('-x', '--max-instances=MAXIMUM_INSTANCES'){|v|app_config[:max_instances] = v}
-      parser.parse!
+      parser.parse! options
 
       app_config[:base_directory] ||= Dir.pwd
 
